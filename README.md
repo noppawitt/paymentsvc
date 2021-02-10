@@ -48,7 +48,7 @@ Response
 }
 ```
 
-Open a link in the ```authorized_uri``` field on the web browser then proceed to approve or reject the payment. The web browser will redirect to the return_uri specify on the first request.
+Open a link in the ```authorized_uri``` field on the web browser then proceed to approve or reject the payment. The web browser will redirect to the ```return_uri``` specify on the first request.
 
 Get the payment result.
 ```
