@@ -7,8 +7,10 @@ import (
 	"time"
 )
 
-var now = time.Now()
-var errSomeError = errors.New("some error")
+var (
+	now          = time.Now()
+	errSomeError = errors.New("some error")
+)
 
 func TestService_CreatePaymentRequest(t *testing.T) {
 	type mocks struct {

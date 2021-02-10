@@ -4,6 +4,12 @@ import (
 	"time"
 )
 
+// Service provides payment service methods.
+type Service interface {
+	CreatePaymentRequest(req *Request) (*Payment, error)
+	Find(id int) (*Payment, error)
+}
+
 // Payment represents a payment.
 type Payment struct {
 	ID       int
@@ -63,22 +69,21 @@ type Client interface {
 	GetCharge(id string) (*OmiseCharge, error)
 }
 
-// Service represents a payment service.
-type Service struct {
+type service struct {
 	client Client
 	repo   Repository
 }
 
 // NewService returns a new payment serivce.
-func NewService(client Client, repo Repository) *Service {
-	return &Service{
+func NewService(client Client, repo Repository) Service {
+	return &service{
 		client: client,
 		repo:   repo,
 	}
 }
 
 // CreatePaymentRequest creates a new payment request.
-func (s *Service) CreatePaymentRequest(req *Request) (*Payment, error) {
+func (s *service) CreatePaymentRequest(req *Request) (*Payment, error) {
 	charge, err := s.client.Charge(req)
 	if err != nil {
 		return nil, err
@@ -101,7 +106,7 @@ func (s *Service) CreatePaymentRequest(req *Request) (*Payment, error) {
 // Find finds a payment with the given payment id in the data source.
 // If payment status is pending, it will fetch for the updated payment through the payment client
 // and store it in the data source.
-func (s *Service) Find(id int) (*Payment, error) {
+func (s *service) Find(id int) (*Payment, error) {
 	payment, err := s.repo.Find(id)
 	if err != nil {
 		return nil, err

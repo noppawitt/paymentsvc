@@ -14,11 +14,11 @@ import (
 
 // Payment represents a payment handler.
 type Payment struct {
-	service *payment.Service
+	service payment.Service
 }
 
 // NewPayment returns a new payment handler.
-func NewPayment(service *payment.Service) *Payment {
+func NewPayment(service payment.Service) *Payment {
 	return &Payment{
 		service: service,
 	}
@@ -99,12 +99,13 @@ func (h *Payment) getPayment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	res := &getPaymentResponse{
-		ID:        payment.ID,
-		Status:    payment.Status,
-		Amount:    payment.Amount,
-		Currency:  payment.Currency,
-		CreatedAt: payment.CreatedAt,
-		UpdatedAt: payment.UpdatedAt,
+		ID:         payment.ID,
+		Status:     payment.Status,
+		Amount:     payment.Amount,
+		Currency:   payment.Currency,
+		SourceType: payment.OmiseCharge.SourceType,
+		CreatedAt:  payment.CreatedAt,
+		UpdatedAt:  payment.UpdatedAt,
 	}
 
 	respondJSON(w, res, http.StatusOK)
