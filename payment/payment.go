@@ -64,6 +64,9 @@ type Request struct {
 }
 
 // Client provides methods for a payment gateway client to be implemented.
+// This might be too coupled to Omise payment gateway.
+// But for ease of development and not too over-engineering at the first,
+// we can stay with it until a new payment gateway has to be implemented then refactor.
 type Client interface {
 	Charge(req *Request) (*OmiseCharge, error)
 	GetCharge(id string) (*OmiseCharge, error)

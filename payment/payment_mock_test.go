@@ -20,18 +20,15 @@ type mockRepository struct {
 	UpdateStatusFn  func(id int, status Status) error
 }
 
-// Create calls CreateFn.
 func (m *mockRepository) Create(payment *Payment) error {
 	return m.CreateFn(payment)
 }
 
-// Find calls FindFn.
 func (m *mockRepository) Find(id int) (*Payment, error) {
 	m.FindCalledTimes++
 	return m.FindFn(id)
 }
 
-// UpdateStatus calls UpdateStatusFn.
 func (m *mockRepository) UpdateStatus(id int, status Status) error {
 	return m.UpdateStatusFn(id, status)
 }
