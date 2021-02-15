@@ -57,6 +57,7 @@ func (r *PaymentRepository) UpdateStatus(id int, status payment.Status) error {
 	if !ok {
 		return ErrPaymentNotFound
 	}
+	payment.Status = status
 	payment.OmiseCharge.Status = status
 	payment.UpdatedAt = time.Now()
 	return nil
